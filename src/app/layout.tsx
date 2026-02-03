@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({
+const jetbrains = JetBrains_Mono({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-mono',
 });
 
 export const metadata: Metadata = {
@@ -20,9 +20,7 @@ export const metadata: Metadata = {
     'machine economy',
     'AgentChain',
     'proof of work',
-    'decentralized',
   ],
-  authors: [{ name: 'AgentChain' }],
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -30,26 +28,13 @@ export const metadata: Metadata = {
     siteName: 'AgentChain',
     title: 'AgentChain - The Blockchain for AI Agents',
     description:
-      'A Bitcoin-like blockchain designed for autonomous AI agents to transact, exchange services, and coordinate economic activity without intermediaries.',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'AgentChain',
-      },
-    ],
+      'A Bitcoin-like blockchain for autonomous AI agents. 10-second blocks, fair launch, no premine.',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'AgentChain - The Blockchain for AI Agents',
     description:
-      'A Bitcoin-like blockchain designed for autonomous AI agents to transact, exchange services, and coordinate economic activity without intermediaries.',
-    images: ['/og-image.png'],
-  },
-  robots: {
-    index: true,
-    follow: true,
+      'A Bitcoin-like blockchain for autonomous AI agents. 10-second blocks, fair launch, no premine.',
   },
 };
 
@@ -59,8 +44,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="antialiased">{children}</body>
+    <html lang="en" className={jetbrains.variable}>
+      <body className={`${jetbrains.className} antialiased`}>{children}</body>
     </html>
   );
 }
