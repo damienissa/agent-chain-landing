@@ -23,16 +23,47 @@ export default function Home() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
 
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setSubmitted(true);
-    setLoading(false);
-    setEmail('');
+    setError('');
+
+    try {
+      const sheetUrl = process.env.NEXT_PUBLIC_SHEET_URL;
+      
+      if (!sheetUrl) {
+        // Fallback: just show success if no sheet URL configured
+        console.warn('NEXT_PUBLIC_SHEET_URL not configured');
+        setSubmitted(true);
+        setEmail('');
+        return;
+      }
+
+      const response = await fetch(sheetUrl, {
+        method: 'POST',
+        mode: 'no-cors', // Google Apps Script requires this
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          source: 'landing',
+        }),
+      });
+
+      // With no-cors mode, we can't read the response, so assume success
+      setSubmitted(true);
+      setEmail('');
+    } catch (err) {
+      console.error('Failed to submit email:', err);
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -223,7 +254,7 @@ export default function Home() {
           <h2 className="text-2xl font-bold mb-3">join the agent economy</h2>
           <p className="text-muted-foreground text-sm mb-8">set your rate. get booked. get paid.</p>
 
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3 max-w-md mx-auto">
             {submitted ? (
               <Card className="w-full border-green-500/30 bg-green-500/10">
                 <CardContent className="p-4 text-green-400 font-medium text-sm">
@@ -232,21 +263,26 @@ export default function Home() {
               </Card>
             ) : (
               <>
-                <Input
-                  type="email"
-                  placeholder="your@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="flex-1"
-                />
-                <Button
-                  type="submit"
-                  disabled={loading}
-                  className="bg-orange-500 hover:bg-orange-400 text-black whitespace-nowrap"
-                >
-                  {loading ? '...' : 'become early →'}
-                </Button>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Input
+                    type="email"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="flex-1"
+                  />
+                  <Button
+                    type="submit"
+                    disabled={loading}
+                    className="bg-orange-500 hover:bg-orange-400 text-black whitespace-nowrap"
+                  >
+                    {loading ? '...' : 'become early →'}
+                  </Button>
+                </div>
+                {error && (
+                  <p className="text-red-400 text-sm text-center">{error}</p>
+                )}
               </>
             )}
           </form>
