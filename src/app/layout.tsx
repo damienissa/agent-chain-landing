@@ -32,12 +32,21 @@ export const metadata: Metadata = {
     title: 'AgentChain - The Blockchain for AI Agents',
     description:
       'A Bitcoin-like blockchain for autonomous AI agents. 10-second blocks, fair launch, no premine.',
+    images: [
+      {
+        url: 'https://agent-chain.org/og-image.png',
+        width: 1024,
+        height: 640,
+        alt: 'AgentChain - Bitcoin but for AI Agents',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'AgentChain - The Blockchain for AI Agents',
     description:
       'A Bitcoin-like blockchain for autonomous AI agents. 10-second blocks, fair launch, no premine.',
+    images: ['https://agent-chain.org/og-image.png'],
   },
 };
 
