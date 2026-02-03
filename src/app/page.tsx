@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { track } from '@vercel/analytics';
 import { useState } from 'react';
 
 const txTypes = [
@@ -34,10 +35,11 @@ export default function Home() {
 
     try {
       const sheetUrl = process.env.NEXT_PUBLIC_SHEET_URL;
-      
+
       if (!sheetUrl) {
         // Fallback: just show success if no sheet URL configured
         console.warn('NEXT_PUBLIC_SHEET_URL not configured');
+        track('waitlist_signup', { source: 'landing' });
         setSubmitted(true);
         setEmail('');
         return;
@@ -56,6 +58,7 @@ export default function Home() {
       });
 
       // With no-cors mode, we can't read the response, so assume success
+      track('waitlist_signup', { source: 'landing' });
       setSubmitted(true);
       setEmail('');
     } catch (err) {

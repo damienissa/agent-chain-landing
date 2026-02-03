@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { JetBrains_Mono } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 
 const jetbrains = JetBrains_Mono({
@@ -45,7 +47,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={jetbrains.variable}>
-      <body className={`${jetbrains.className} antialiased`}>{children}</body>
+      <body className={`${jetbrains.className} antialiased`}>
+        {children}
+        <Analytics />
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
