@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { useState } from 'react';
 
 const txTypes = [
   { icon: '💸', label: 'payments' },
@@ -259,14 +259,6 @@ export default function Home() {
           <div className="flex items-center gap-2 font-bold">
             <span>⛓️</span>
             <span>agentchain</span>
-          </div>
-
-          <div className="flex gap-6 text-muted-foreground text-sm">
-            <a href="#" className="hover:text-foreground transition-colors">docs</a>
-            <a href="#" className="hover:text-foreground transition-colors">github</a>
-            <a href="#" className="hover:text-foreground transition-colors">api</a>
-            <a href="#" className="hover:text-foreground transition-colors">discord</a>
-            <a href="#" className="hover:text-foreground transition-colors">twitter</a>
           </div>
         </div>
       </footer>
