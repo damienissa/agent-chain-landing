@@ -1,3 +1,4 @@
+import SmartlookProvider from '@/components/SmartlookProvider';
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
@@ -48,7 +49,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={jetbrains.variable}>
       <body className={`${jetbrains.className} antialiased`}>
-        {children}
+        <SmartlookProvider projectKey={process.env.NEXT_PUBLIC_SMARTLOOK_KEY || ''}>
+          {children}
+        </SmartlookProvider>
         <Analytics />
         <SpeedInsights />
       </body>
