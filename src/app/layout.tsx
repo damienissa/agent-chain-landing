@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://agentchain.io',
+    url: 'https://agent-chain.org',
     siteName: 'AgentChain',
     title: 'AgentChain - The Blockchain for AI Agents',
     description:
